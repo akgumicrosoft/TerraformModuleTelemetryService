@@ -34,9 +34,13 @@ module "endpoint_blob" {
   resource_group_name     = module.resource_group.resource_group_name
 }
 
-data "azuread_group" "modtm_reader" {
-  display_name = "Modtm Telemetry Reader"
+resource "azuread_group" "modtm_reader" {
+  display_name     = "Modtm Telemetry Reader"
+  security_enabled = true
+  mail_enabled     = false
+  description      = "Group for read-only access in Azure"
 }
+
 
 resource "azurerm_role_assignment" "telemetry_reader" {
   for_each = tomap({
@@ -45,5 +49,5 @@ resource "azurerm_role_assignment" "telemetry_reader" {
   })
   role_definition_name = "Reader"
   scope                = sensitive(each.value)
-  principal_id         = sensitive(data.azuread_group.modtm_reader.object_id)
+  principal_id         = sensitive(resource.azuread_group.modtm_reader.object_id)
 }

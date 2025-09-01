@@ -5,7 +5,7 @@ module "public_ip" {
 
 resource "azurerm_container_registry" "this" {
   location                      = var.location
-  name                          = "avmtelemetry"
+  name                          = "azmigrateiactelemetry"
   resource_group_name           = var.resource_group_name
   sku                           = "Premium"
   public_network_access_enabled = true

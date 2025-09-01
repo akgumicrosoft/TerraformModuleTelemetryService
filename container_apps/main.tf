@@ -9,13 +9,13 @@ locals {
 resource "azurerm_application_insights" "this" {
   application_type    = "other"
   location            = var.location
-  name                = "ai-avm-telemetry"
+  name                = "ai-azm-iac-telemetry"
   resource_group_name = var.resource_group_name
   workspace_id        = azurerm_log_analytics_workspace.this.id
 }
 
 resource "azurerm_log_analytics_workspace" "this" {
-  name                = "law-avm-telemetry"
+  name                = "law-azm-iac-telemetry"
   location            = var.location
   resource_group_name = var.resource_group_name
   sku                 = "PerGB2018"
@@ -58,6 +58,7 @@ module "telemetry_proxy" {
                 name  = "DIAG"
                 value = "1"
                 }] : []), [for i, r in [
+                "azmalziac/.+",
                 "registry.terraform.io/[A|a]zure/.+",
                 "registry.opentofu.org/[A|a]zure/.+",
                 "git::https://github\\.com/[A|a]zure/.+",

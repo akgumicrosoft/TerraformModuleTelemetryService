@@ -1,10 +1,10 @@
 terraform {
   backend "azurerm" {
-    storage_account_name = "tfmod1espoolstatestorage"
-    resource_group_name  = "bambrane-runner-state"
-    container_name       = "azure-verified-tfmod-runner-state"
+    storage_account_name = "azmiactlmetrybackendsa"
+    resource_group_name  = "azmigrateiactelemetrybackend-rg"
+    container_name       = "azmigrateiactelemetrybackend-container"
     key                  = "telemetry/terraform.tfstate"
     snapshot             = true
-    use_msi              = true
+    //use_msi              = true
   }
 }
